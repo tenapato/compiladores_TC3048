@@ -1,0 +1,15 @@
+
+main()[
+
+    int x = 9;
+    
+    for(int i = 0; i < 10; i++)
+    {
+        x = x + 1;
+    }
+    
+    while(x>1){
+        print("Hola")&
+    }
+    
+]
