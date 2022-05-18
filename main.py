@@ -1,6 +1,6 @@
 import os
 import argparse
-#from tac import TACGenerator
+
 from aSintactico import ParseManager
 
 argument_parser = argparse.ArgumentParser(usage='python3 -m app [-h] [arguments]')

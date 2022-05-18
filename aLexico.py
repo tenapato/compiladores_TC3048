@@ -21,11 +21,13 @@ class LexManager:
         'do': 'DO',
         'for': 'FOR',
         'true': 'BOOLEAN_VALUE_T',
-        'false': 'BOOLEAN_VALUE_F'
+        'false': 'BOOLEAN_VALUE_F',
+        'struct': 'STRUCT',
+        'array': 'ARRAY',
     }
 
     literals = ['=', '+', '-', '*', '/', '^',
-                ">", "<", '(', ')', '{', '}', ';', '[' , ']']
+                ">", "<", '(', ')', '{', '}', ';', '[' , ']', ',']
 
     tokens = [
         'EQUALS',
@@ -82,7 +84,7 @@ class LexManager:
         else:
             t.value = t.value[error.span()[0]: error.span()[1]-1]
             t.lexer.skip(error.span()[1]-1)
-        self.errors.append(
+        print( # print to see error
             "Token {} no se reconocio en la linea {}".format(t.value, t.lineno))
 
     def build(self, **kwargs):
@@ -90,17 +92,19 @@ class LexManager:
         return self.lexer
 
 
-if __name__ == '__main__':
-    lexer = LexManager().build()
-    # read input from file
-    with open('test.txt', 'r') as f:
-        data = f.read()
-    lexer.input(data)
-    while True:
-            tok = lexer.token()
-            if not tok:
-                break
-            print(tok)
+# if __name__ == '__main__':
+#     lexer = LexManager().build()
+#     # read input from file
+#     with open('test.txt', 'r') as f:
+#         data = f.read()
+#     lexer.input(data)
+#     while True:
+#             tok = lexer.token()
+#             if not tok:
+#                 break
+#             print(tok)
+
+    ## leer token por linea
     # while True:
     #     try:
     #         s = input('> ')
