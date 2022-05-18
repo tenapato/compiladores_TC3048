@@ -91,30 +91,3 @@ class LexManager:
         self.lexer = lex.lex(module=self, **kwargs)
         return self.lexer
 
-
-# if __name__ == '__main__':
-#     lexer = LexManager().build()
-#     # read input from file
-#     with open('test.txt', 'r') as f:
-#         data = f.read()
-#     lexer.input(data)
-#     while True:
-#             tok = lexer.token()
-#             if not tok:
-#                 break
-#             print(tok)
-
-    ## leer token por linea
-    # while True:
-    #     try:
-    #         s = input('> ')
-    #     except EOFError:
-    #         break
-    #     if not s:
-    #         continue
-    #     lexer.input(s)
-    #     while True:
-    #         tok = lexer.token()
-    #         if not tok:
-    #             break
-    #         print(tok)
