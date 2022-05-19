@@ -48,7 +48,24 @@ if(true || false == true) {
 }
 
 struct test{
-  a = 1;
+  int var;
 }
 
-array a = [a, b, c];
+var = 1;
+
+
+
+int SIZE1 = 3;
+
+int SIZE2 = 3;
+
+int indx =0;
+
+
+array xd[SIZE1];
+array xd2[SIZE1][SIZE2]; 
+array xd2[SIZE1][SIZE2][SIZE1]; 
+array xd[indx] = 5;
+
+
+
