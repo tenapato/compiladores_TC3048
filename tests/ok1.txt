@@ -62,10 +62,10 @@ int SIZE2 = 3;
 int indx =0;
 
 
-array xd[SIZE1];
-array xd2[SIZE1][SIZE2]; 
-array xd2[SIZE1][SIZE2][SIZE1]; 
-array xd[indx] = 5;
+array xd[3];
+array xd2[2][3]; 
+array xd2[2][3][2]; 
+array xd[0] = 5;
 
 
 

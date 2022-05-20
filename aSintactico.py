@@ -52,17 +52,33 @@ class ParseManager:
                        | selection_statement
                        | iteration_statement
                        | struct_statement
-                       | array_statement '''
+                       | array_statement
+                       | array_assignment '''
         p[0] = p[1]
 
     def p_struct_statement(self, p):
         ''' struct_statement : STRUCT ID blocked_content '''
         p[0] = (p[1], p[2], p[3])
 
-
     def p_array_statement(self, p):
-        ''' array_statement : ARRAY ID '=' braced_content '''
+        ''' array_statement : ARRAY ID braced_content '''
         p[0] = (p[1], p[2], p[3])
+    
+    def p_braced_content(self, p):
+        ''' braced_content :  array_dimentions  ';' '''
+        p[0] = p[1]
+
+    def p_array_dimentions(self, p):
+        ''' array_dimentions : array_dimentions '[' INT_VALUE ']' 
+                              | '[' INT_VALUE ']' '''
+        if len(p) == 2:
+            p[0] = (p[1],)
+        else:
+            p[0] = p[1] + str((p[3],))
+    
+    def p_array_assignment(self, p):
+        ''' array_assignment : ARRAY ID array_dimentions  '=' op_expression ';'  '''
+        p[0] = (p[1], p[2], p[3], p[5])
 
     def p_selection_statement(self, p):
         ''' selection_statement : IF special_statement
@@ -101,10 +117,6 @@ class ParseManager:
         ''' blocked_content : '{' prog '}' '''
         p[0] = p[2]
 
-    def p_braced_content(self, p):
-        ''' braced_content :  '[' var_list ']' ';' '''
-        p[0] = p[2]
-
     def p_var_list(self, p):
         ''' var_list : var_list ',' var
                     | var '''
@@ -114,7 +126,7 @@ class ParseManager:
             p[0] = p[1] + (p[3],)
 
     def p_var(self, p):
-        ''' var : ID '''
+        ''' var : INT '''
         p[0] = p[1]
 
 
