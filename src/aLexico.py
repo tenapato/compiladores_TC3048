@@ -24,6 +24,8 @@ class LexManager:
         'false': 'BOOLEAN_VALUE_F',
         'struct': 'STRUCT',
         'array': 'ARRAY',
+        'function': 'FUNCTION',
+        'return': 'RETURN',
     }
 
     literals = ['=', '+', '-', '*', '/', '^',

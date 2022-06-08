@@ -53,12 +53,62 @@ class ParseManager:
                        | iteration_statement
                        | struct_statement
                        | array_statement
-                       | array_assignment '''
+                       | array_assignment
+                       | function_statement
+                       | function_call '''
         p[0] = p[1]
 
+    def p_function_statement(self, p):
+        ''' function_statement : FUNCTION ID '(' function_params ')' blocked_content  '''
+        
+        # if the function is not defined in the symbol table print error else add it
+        
+        if self.symbol_exists(p[2]):
+            print('Error: La funcion {} ya esta definida {}'.format(p[2], p.lineno(2)))
+        else:
+            p[0] = (p[1], p[2], p[3])
+            # add to symbol table
+            self.symbol_table[p[2]] = Symbol(p[2], 'FUNCTION', p.lineno(2), p[4])
+            
+    def p_function_params(self, p):
+        ''' function_params : function_params ',' param
+                            | param '''
+        if len(p) == 2:
+            p[0] = (p[1],)
+        else:
+            p[0] = p[1] + (p[3],)
+    
+    def p_param(self, p):
+        ''' param : declaration '''
+        p[0] = p[1]
+
+    def p_function_call(self, p):
+        ''' function_call : ID '(' function_call_params ')' ';' '''
+        p[0] = (p[1], p[2], p[3])
+        if not self.symbol_exists(p[1]):
+            print('Error: La funcion {} no esta definida, en la linea {}'.format(p[1], p.lineno(1)))
+
+    
+    def p_function_call_params(self, p):
+        ''' function_call_params :  function_call_params  ',' param_call
+                                | param_call '''      
+        if len(p) == 2:
+            p[0] = (p[1],)
+        else:
+            p[0] = p[1] + (p[3],)        
+
+    # def param call with ints
+    def p_param_call(self, p):
+        ''' param_call : val '''
+        p[0] = (p[1],)
+        
+    
     def p_struct_statement(self, p):
         ''' struct_statement : STRUCT ID blocked_content '''
         p[0] = (p[1], p[2], p[3])
+        if self.symbol_exists(p[2]):
+            print('Error: La estructura {} ya esta definida {}'.format(p[2], p.lineno(2)))
+        
 
     def p_array_statement(self, p):
         ''' array_statement : ARRAY ID braced_content '''
@@ -114,8 +164,14 @@ class ParseManager:
             p[0] = p[1] + ((p[2], p[3][0], p[3][1]),)
 
     def p_blocked_content(self, p):
-        ''' blocked_content : '{' prog '}' '''
+        ''' blocked_content : '{' prog '}' 
+                            | '{' prog return '}' '''
         p[0] = p[2]
+
+    def p_return(self, p):
+        ''' return : RETURN ';'
+                    | RETURN ID ';' '''
+        p[0] = (p[1],)
 
     def p_var_list(self, p):
         ''' var_list : var_list ',' var

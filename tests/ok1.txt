@@ -51,6 +51,11 @@ struct test{
   int var;
 }
 
+struct test{
+  int var2;
+}
+
+
 var = 1;
 
 
@@ -68,4 +73,13 @@ array xd2[2][3][2];
 array xd[0] = 5;
 
 
+function test(int p1, int p2) {
+ p1 = 5;
+ print(p1);
+ return p1;
+}
+
+
+
+test(4,5);
 

@@ -3,3 +3,5 @@ float a;
 a = 5;
 @@@ asdf !!!;
 c = 3;
+
+test2(4,5);
