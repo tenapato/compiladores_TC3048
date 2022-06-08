@@ -10,6 +10,10 @@ El proyecto consiste en construir un compilador capaz de reoonocer tokens especi
 El equipo se encargo de generar el lenguaje léxico al igual que el sintáctico, para que así podamos definir nuestras reglas al igual que nuestros tokens como lenguaje.
 ## Como correr el programa
 
+```
+pip install -r requirements.txt
+```
+
 ``` 
 python main.py [argumentos]
 ```
