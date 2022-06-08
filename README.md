@@ -17,7 +17,10 @@ pip install -r requirements.txt
 ``` 
 python main.py [argumentos]
 ```
-
+### Example:
+``` 
+python ./src/main.py ./tests/ok1.txt
+```
 ### Argumentos
 
 - input-file: Archivo que contiene el programa a compilar
